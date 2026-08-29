@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carreras Universitarias - UAP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+
+        .carreras-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .carrera-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .carrera-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .carrera-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: #f0f0f0;
+            display: block;
+        }
+
+        .carrera-image.error {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 4rem;
+        }
+
+        .carrera-info {
+            padding: 20px;
+        }
+
+        .carrera-nombre {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .carrera-facultad {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .stats {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .stats-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .carreras-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 15px;
+            }
+        }
+
+        .loading {
+            text-align: center;
+            color: white;
+            font-size: 1.2rem;
+            padding: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎓 Carreras Universitarias</h1>
+        <p class="subtitle">Universidad Autónoma del Perú - UAP</p>
+        
+        <div class="stats">
+            <span class="stats-number" id="total-carreras">0</span>
+            <span>Carreras Disponibles</span>
+        </div>
+
+        <div id="carreras-container" class="carreras-grid">
+            <div class="loading">Cargando carreras...</div>
+        </div>
+    </div>
+
+    <script>
+        // CARRERAS LIMITADAS A LAS DE LA IMAGEN
+        const carrerasInfo = {
+            'Administración de Empresas': { imagen: './imagenes/carreras/administracion.png', facultad: 'Ciencias Económicas' },
+            'Ingeniería Ambiental': { imagen: './imagenes/carreras/ambiental.png', facultad: 'Ciencias Biológicas' },
+            'Arquitectura': { imagen: './imagenes/carreras/arquitectura.png', facultad: 'Ciencias y Tecnología' },
+            'Biología': { imagen: './imagenes/carreras/biologia.png', facultad: 'Ciencias Biológicas' },
+            'Bioquímica y Farmacia': { imagen: './imagenes/carreras/farmacia.png', facultad: 'Ciencias de la Salud' },
+            'Ciencias Políticas y Gestión Pública': { imagen: './imagenes/carreras/ciencias-politicas.png', facultad: 'Ciencias Jurídicas' },
+            'Comercio Internacional y Aduanas': { imagen: './imagenes/carreras/comercio.png', facultad: 'Ciencias Económicas' },
+            'Comunicación Social': { imagen: './imagenes/carreras/comunicacion.png', facultad: 'Ciencias Sociales y Humanísticas' },
+            'Contaduría Pública': { imagen: './imagenes/carreras/contabilidad.png', facultad: 'Ciencias Económicas' },
+            'Derecho': { imagen: './imagenes/carreras/derecho.png', facultad: 'Ciencias Jurídicas' },
+            'Enfermería': { imagen: './imagenes/carreras/enfermeria.png', facultad: 'Ciencias de la Salud' },
+            'Ingeniería Agroforestal': { imagen: './imagenes/carreras/agroforestal.png', facultad: 'Ciencias Biológicas' },
+            'Ingeniería Biomédica': { imagen: './imagenes/carreras/biomedica.png', facultad: 'Ciencias y Tecnología' },
+            'Ingeniería Civil': { imagen: './imagenes/carreras/ingenieria-civil.png', facultad: 'Ciencias y Tecnología' },
+            'Ingeniería Comercial': { imagen: './imagenes/carreras/ingenieria-comercial.png', facultad: 'Ciencias Económicas' },
+            'Ingeniería de Sistemas': { imagen: './imagenes/carreras/sistemas.png', facultad: 'Ciencias y Tecnología' },
+            'Ingeniería Financiera': { imagen: './imagenes/carreras/finanzas.png', facultad: 'Ciencias Económicas' },
+            'Ingeniería Industrial': { imagen: './imagenes/carreras/industrial.png', facultad: 'Ciencias y Tecnología' },
+            'Medicina': { imagen: './imagenes/carreras/medicina.png', facultad: 'Ciencias de la Salud' },
+            'Odontología': { imagen: './imagenes/carreras/odontologia.png', facultad: 'Ciencias de la Salud' },
+            'Sociología': { imagen: './imagenes/carreras/sociologia.png', facultad: 'Ciencias Jurídicas' },
+            'Trabajo Social': { imagen: './imagenes/carreras/trabajo-social.png', facultad: 'Ciencias Sociales y Humanísticas' },
+            'Turismo Sostenible': { imagen: './imagenes/carreras/turismo.png', facultad: 'Ciencias Económicas' },
+            'Medicina Veterinaria y Zootecnia': { imagen: './imagenes/carreras/veterinaria.png', facultad: 'Ciencias Biológicas' },
+            'Psicología': { imagen: './imagenes/logo-psicologia.png', facultad: 'Ciencias Sociales y Humanísticas' }
+        };
+
+        // Función para obtener la inicial de cada carrera
+        function getInitial(nombre) {
+            return nombre.charAt(0).toUpperCase();
+        }
+
+        // Función para renderizar las carreras
+        function renderCarreras() {
+            const container = document.getElementById('carreras-container');
+            const totalElement = document.getElementById('total-carreras');
+            
+            // Actualizar contador
+            totalElement.textContent = Object.keys(carrerasInfo).length;
+            
+            // Limpiar container
+            container.innerHTML = '';
+            
+            // Ordenar alfabéticamente
+            const carrerasOrdenadas = Object.entries(carrerasInfo).sort((a, b) => 
+                a[0].localeCompare(b[0])
+            );
+            
+            // Crear tarjeta para cada carrera
+            carrerasOrdenadas.forEach(([nombre, datos]) => {
+                const card = document.createElement('div');
+                card.className = 'carrera-card';
+                
+                const img = document.createElement('img');
+                img.className = 'carrera-image';
+                img.src = datos.imagen;
+                img.alt = nombre;
+                
+                // Manejar error de carga de imagen
+                img.onerror = function() {
+                    this.style.display = 'none';
+                    this.parentElement.innerHTML += `
+                        <div class="carrera-image error" style="height: 200px; margin: 0;">
+                            ${getInitial(nombre)}
+                        </div>
+                    `;
+                };
+                
+                const info = document.createElement('div');
+                info.className = 'carrera-info';
+                info.innerHTML = `
+                    <div class="carrera-nombre">${nombre}</div>
+                    <span class="carrera-facultad">${datos.facultad}</span>
+                `;
+                
+                card.appendChild(img);
+                card.appendChild(info);
+                container.appendChild(card);
+                
+                // Click en la tarjeta
+                card.addEventListener('click', () => {
+                    alert(`Carrera: ${nombre}\nFacultad: ${datos.facultad}`);
+                });
+            });
+        }
+
+        // Cargar cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', renderCarreras);
+    </script>
+</body>
+</html>
