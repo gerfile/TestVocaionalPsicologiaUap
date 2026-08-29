@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Vocacional UAP - Descubre Tu Futuro 🚀</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #E61E78 0%, #FF6B35 50%, #00796B 100%);
+            min-height: 100vh;
+            padding: 10px;
+            transition: background 0.3s ease;
+        }
+
+        body.genero-mujer {
+            background: linear-gradient(135deg, #E61E78 0%, #D81B60 50%, #00897B 100%);
+        }
+
+        body.genero-varon {
+            background: linear-gradient(135deg, #FF6B35 0%, #E64A19 50%, #1A237E 100%);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(135deg, #E61E78 0%, #FF6B35 50%, #00796B 100%);
+            color: white;
+            transition: background 0.3s ease;
+        }
+
+        body.genero-mujer .header {
+            background: linear-gradient(135deg, #E61E78 0%, #D81B60 50%, #00897B 100%);
+        }
+
+        body.genero-varon .header {
+            background: linear-gradient(135deg, #FF6B35 0%, #E64A19 50%, #1A237E 100%);
+        }
+
+        .header-logo {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .logo-facultad {
+            width: 120px;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.8);
+            padding: 10px;
+        }
+
+        .logo-facultad img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+        }
+
+        .header h1 {
+            font-size: clamp(1.5em, 5vw, 2.5em);
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .header p {
+            font-size: clamp(0.9em, 3vw, 1.1em);
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: clamp(15px, 5vw, 40px);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+            font-size: clamp(0.95em, 2vw, 1.05em);
+        }
+
+        input[type="text"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #E61E78;
+            box-shadow: 0 0 0 3px rgba(230, 30, 120, 0.1);
+        }
+
+        body.genero-varon input:focus,
+        body.genero-varon select:focus {
+            border-color: #FF6B35;
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0;
+            font-weight: normal;
+            cursor: pointer;
+        }
+
+        input[type="radio"] {
+            margin-right: 8px;
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+            accent-color: #E61E78;
+        }
+
+        body.genero-varon input[type="radio"] {
+            accent-color: #FF6B35;
+        }
+
+        #seccionDatos {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        #seccionPreguntas {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .pregunta-container {
+            background: #f9f9f9;
+            padding: clamp(20px, 5vw, 40px);
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .progress-container {
+            margin-bottom: 30px;
+            display: none;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #E61E78 0%, #FF6B35 100%);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        body.genero-varon .progress-fill {
+            background: linear-gradient(90deg, #FF6B35 0%, #1A237E 100%);
+        }
+
+        .progress-text {
+            text-align: right;
+            font-size: 0.9em;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        .numero-pregunta {
+            display: inline-block;
+            background: linear-gradient(135deg, #E61E78 0%, #FF6B35 100%);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        body.genero-varon .numero-pregunta {
+            background: linear-gradient(135deg, #FF6B35 0%, #1A237E 100%);
+        }
+
+        .pregunta-titulo {
+            font-size: clamp(1.2em, 4vw, 1.8em);
+            color: #E61E78;
+            margin-bottom: 25px;
+            line-height: 1.4;
+        }
+
+        body.genero-varon .pregunta-titulo {
+            color: #FF6B35;
+        }
+
+        .opciones {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .opcion {
+            display: flex;
+            align-items: flex-start;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+            text-align: left;
+        }
+
+        .opcion:hover {
+            border-color: #E61E78;
+            background: #fdf0f5;
+            transform: translateX(3px);
+        }
+
+        body.genero-varon .opcion:hover {
+            border-color: #FF6B35;
+            background: #fff3e0;
+        }
+
+        .opcion input[type="radio"] {
+            margin-top: 3px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .opcion.selected {
+            background: #E61E78;
+            color: white;
+            border-color: #E61E78;
+        }
+
+        body.genero-varon .opcion.selected {
+            background: #FF6B35;
+            border-color: #FF6B35;
+        }
+
+        .opcion.selected input[type="radio"] {
+            accent-color: white;
+        }
+
+        .opcion label {
+            margin-bottom: 0;
+            font-weight: normal;
+            cursor: pointer;
+            flex: 1;
+            font-size: clamp(0.9em, 2vw, 1em);
+        }
+
+        #seccionResultado {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .resultado-header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .resultado-header h2 {
+            font-size: clamp(1.8em, 5vw, 2em);
+            margin-bottom: 10px;
+            color: #E61E78;
+        }
+
+        body.genero-varon .resultado-header h2 {
+            color: #FF6B35;
+        }
+
+        .resultado-perfil {
+            background: linear-gradient(135deg, #E61E78 0%, #D81B60 50%, #00897B 100%);
+            color: white;
+            padding: clamp(20px, 5vw, 30px);
+            border-radius: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        body.genero-varon .resultado-perfil {
+            background: linear-gradient(135deg, #FF6B35 0%, #E64A19 50%, #1A237E 100%);
+        }
+
+        .perfil-titulo {
+            font-size: clamp(1.4em, 4vw, 1.8em);
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .perfil-descripcion {
+            font-size: clamp(0.95em, 2vw, 1.1em);
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+
+        .carreras-section {
+            text-align: left;
+            background: #f5f5f5;
+            padding: clamp(20px, 5vw, 30px);
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .carreras-section h3 {
+            color: #E61E78;
+            margin-bottom: 20px;
+            font-size: clamp(1.1em, 3vw, 1.3em);
+            text-align: center;
+        }
+
+        body.genero-varon .carreras-section h3 {
+            color: #FF6B35;
+        }
+
+        .carreras-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .carrera-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 5px solid #E61E78;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+
+        body.genero-varon .carrera-item {
+            border-left-color: #FF6B35;
+        }
+
+        .carrera-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(230, 30, 120, 0.2);
+        }
+
+        body.genero-varon .carrera-item:hover {
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.2);
+        }
+
+        .carrera-logo {
+            width: 60px;
+            height: 60px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f0f0f0;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+            padding: 5px;
+        }
+
+        .carrera-logo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+        }
+
+        .carrera-nombre {
+            font-weight: 600;
+            color: #E61E78;
+            font-size: clamp(0.9em, 2vw, 1em);
+        }
+
+        body.genero-varon .carrera-nombre {
+            color: #FF6B35;
+        }
+
+        .datos-resultado {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .datos-resultado p {
+            margin: 8px 0;
+            color: #666;
+            font-size: clamp(0.9em, 2vw, 1em);
+        }
+
+        .datos-resultado strong {
+            color: #E61E78;
+        }
+
+        body.genero-varon .datos-resultado strong {
+            color: #FF6B35;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            font-size: clamp(0.9em, 2vw, 1.05em);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #E61E78 0%, #FF6B35 100%);
+            color: white;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        body.genero-varon .btn-primary {
+            background: linear-gradient(135deg, #FF6B35 0%, #1A237E 100%);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(230, 30, 120, 0.3);
+        }
+
+        body.genero-varon .btn-primary:hover:not(:disabled) {
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.3);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: #E61E78;
+            color: white;
+            margin-top: 30px;
+            font-size: clamp(0.9em, 2vw, 1em);
+            padding: 12px 20px;
+        }
+
+        body.genero-varon .btn-secondary {
+            background: #FF6B35;
+        }
+
+        .btn-secondary:hover {
+            background: #D81B60;
+            transform: translateY(-2px);
+        }
+
+        body.genero-varon .btn-secondary:hover {
+            background: #E64A19;
+        }
+
+        .error-message {
+            color: #c0392b;
+            font-weight: 600;
+            margin-top: 10px;
+            padding: 15px;
+            background: #fadbd8;
+            border-radius: 10px;
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 20px 15px;
+            }
+
+            .header-logo {
+                gap: 15px;
+            }
+
+            .logo-facultad {
+                width: 90px;
+                height: 90px;
+            }
+
+            .content {
+                padding: 15px;
+            }
+
+            .pregunta-container {
+                padding: 20px 15px;
+            }
+
+            .carreras-list {
+                grid-template-columns: 1fr;
+            }
+
+            .radio-group {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.5em;
+            }
+
+            .pregunta-titulo {
+                font-size: 1.1em;
+            }
+
+            .opciones {
+                gap: 10px;
+            }
+
+            .opcion {
+                padding: 12px;
+            }
+
+            .carrera-logo {
+                width: 40px;
+                height: 40px;
+            }
+
+            .logo-facultad {
+                width: 75px;
+                height: 75px;
+                border: 2px solid rgba(255, 255, 255, 0.9);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-logo">
+                <div class="logo-facultad">
+                    <img src="./imagenes/logo-humanisticas.png" alt="Facultad Humanísticas" onerror="this.style.display='none'">
+                </div>
+                <div class="logo-facultad">
+                    <img src="./imagenes/logo-psicologia.png" alt="Facultad Psicología" onerror="this.style.display='none'">
+                </div>
+            </div>
+            <h1>Test Vocacional</h1>
+            <p>Descubre la carrera perfecta en la Universidad Amazónica de Pando</p>
+        </div>
+
+        <div class="content">
+            <!-- SECCIÓN 1: DATOS PERSONALES -->
+            <div id="seccionDatos">
+                <h2 style="color: #E61E78; margin-bottom: 25px; font-size: clamp(1.3em, 4vw, 1.5em);">
+                    📋 Cuéntanos sobre ti
+                </h2>
+
+                <div class="form-group">
+                    <label for="fechaNacimiento">Fecha de nacimiento *</label>
+                    <input type="date" id="fechaNacimiento" required>
+                    <small style="color: #e74c3c; display: none;" id="mensajeEdad">Debes tener al menos 15 años para continuar</small>
+                </div>
+
+                <div class="form-group">
+                    <label>Género *</label>
+                    <div class="radio-group">
+                        <label>
+                            <input type="radio" name="genero" value="mujer"> Mujer
+                        </label>
+                        <label>
+                            <input type="radio" name="genero" value="varon"> Varón
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="colegio">Institución Educativa *</label>
+                    <select id="colegio" required>
+                        <option value="">-- Selecciona tu colegio --</option>
+                        <optgroup label="Fiscales (Públicas)">
+                            <option value="Mariano Baptista">Mariano Baptista</option>
+                            <option value="Cobija A">Cobija "A"</option>
+                            <option value="Simón Bolívar">Simón Bolívar</option>
+                            <option value="José Manuel Pando">José Manuel Pando</option>
+                            <option value="Alfredo Ovando Candia">Alfredo Ovando Candia</option>
+                            <option value="Antonio Vaca Díez">Antonio Vaca Díez (primario y secundario)</option>
+                            <option value="Manuela Rojas">Manuela Rojas de Domínguez</option>
+                            <option value="Rogelia Menacho">Rogelia Menacho de Balcázar</option>
+                            <option value="Defensores de Lacre">Defensores de Lacre</option>
+                            <option value="Bella Vista">Bella Vista</option>
+                            <option value="Héroes de la Distancia">Héroes de la Distancia</option>
+                            <option value="Juana Azurduy">Juana Azurduy de Padilla</option>
+                            <option value="Mariscal Sucre">Mariscal Sucre</option>
+                            <option value="Vaca Díez Secundario">Vaca Díez (secundario)</option>
+                            <option value="Madre Nazaria">Madre Nazaria</option>
+                            <option value="Juan Evo Morales">Juan Evo Morales</option>
+                            <option value="Gualberto Villarroel">Gualberto Villarroel</option>
+                        </optgroup>
+                        <optgroup label="De Convenio">
+                            <option value="Nuestra Señora del Pilar">Nuestra Señora del Pilar</option>
+                            <option value="San Francisco de Asís">San Francisco de Asís</option>
+                        </optgroup>
+                        <optgroup label="Privados">
+                            <option value="Instituto Americano">Colegio Evangélico Metodista Instituto Americano Cobija</option>
+                            <option value="Adventista">Colegio Particular Adventista de Cobija</option>
+                            <option value="Ebenezer">Colegio Particular Ebenezer</option>
+                        </optgroup>
+                    </select>
+                </div>
+
+                <div class="error-message" id="errorForm"></div>
+
+                <button class="btn btn-primary" onclick="iniciarTest()">
+                    ✨ Comenzar Test
+                </button>
+            </div>
+
+            <!-- SECCIÓN 2: PREGUNTAS UNA POR UNA -->
+            <div id="seccionPreguntas">
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-text">
+                        <span id="preguntaActual">1</span> / 10
+                    </div>
+                </div>
+
+                <div class="pregunta-container">
+                    <div class="numero-pregunta" id="numeroPregunta">1</div>
+                    <h3 class="pregunta-titulo" id="tituloPregunta"></h3>
+                    <div class="opciones" id="opcionesPregunta"></div>
+                </div>
+
+                <button class="btn btn-primary" id="btnSiguiente" onclick="siguientePregunta()" disabled>
+                    Siguiente →
+                </button>
+            </div>
+
+            <!-- SECCIÓN 3: RESULTADOS -->
+            <div id="seccionResultado">
+                <div class="resultado-header">
+                    <h2>🎯 Tu Perfil Vocacional</h2>
+                </div>
+
+                <div class="datos-resultado">
+                    <p>Edad: <strong id="edadResultado"></strong> años</p>
+                    <p>Género: <strong id="generoResultado"></strong></p>
+                    <p>Institución: <strong id="colegioResultado"></strong></p>
+                </div>
+
+                <div class="resultado-perfil">
+                    <div class="perfil-titulo" id="perfilTitulo"></div>
+                    <div class="perfil-descripcion" id="perfilDescripcion"></div>
+                </div>
+
+                <div class="carreras-section">
+                    <h3>🎓 Top 3 Carreras Recomendadas en UAP:</h3>
+                    <div class="carreras-list" id="carrerasLista"></div>
+                </div>
+
+                <button class="btn btn-secondary" onclick="reiniciarTest()">
+                    🔄 Realizar test nuevamente
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz0UYoFIDLnffkNs_64JBZz4Ug2qxT-W-RD1wdlt6xeeVCferZbWlSCMUtqg4nQE0DQbg/exec';
+        // CARRERAS LIMITADAS A LAS DE LA IMAGEN
+        const carrerasInfo = {
+            'Administración de Empresas': { imagen: './imagenes/carreras/administracion.png', facultad: 'Ciencias Económicas' },
+            'Ingeniería Ambiental': { imagen: './imagenes/carreras/ambiental.png', facultad: 'Ciencias Biológicas' },
+            'Arquitectura': { imagen: './imagenes/carreras/arquitectura.png', facultad: 'Ciencias y Tecnología' },
+            'Biología': { imagen: './imagenes/carreras/biologia.png', facultad: 'Ciencias Biológicas' },
+            'Bioquímica y Farmacia': { imagen: './imagenes/carreras/farmacia.png', facultad: 'Ciencias de la Salud' },
+            'Ciencias Políticas y Gestión Pública': { imagen: './imagenes/carreras/ciencias-politicas.png', facultad: 'Ciencias Jurídicas' },
+            'Comercio Internacional y Aduanas': { imagen: './imagenes/carreras/comercio.png', facultad: 'Ciencias Económicas' },
+            'Comunicación Social': { imagen: './imagenes/carreras/comunicacion.png', facultad: 'Ciencias Jurídicas' },
+            'Contaduría Pública': { imagen: './imagenes/carreras/contabilidad.png', facultad: 'Ciencias Económicas' },
+            'Derecho': { imagen: './imagenes/carreras/derecho.png', facultad: 'Ciencias Jurídicas' },
+            'Enfermería': { imagen: './imagenes/carreras/enfermeria.png', facultad: 'Ciencias de la Salud' },
+            'Ingeniería Agroforestal': { imagen: './imagenes/carreras/agroforestal.png', facultad: 'Ciencias Biológicas' },
+            'Ingeniería Biomédica': { imagen: './imagenes/carreras/biomedica.png', facultad: 'Ciencias y Tecnología' },
+            'Ingeniería Civil': { imagen: './imagenes/carreras/ingenieria-civil.png', facultad: 'Ciencias y Tecnología' },
+            'Ingeniería Comercial': { imagen: './imagenes/carreras/ingenieria-comercial.png', facultad: 'Ciencias Económicas' },
+            'Ingeniería de Sistemas': { imagen: './imagenes/carreras/sistemas.png', facultad: 'Ciencias y Tecnología' },
+            'Ingeniería Financiera': { imagen: './imagenes/carreras/finanzas.png', facultad: 'Ciencias Económicas' },
+            'Ingeniería Industrial': { imagen: './imagenes/carreras/industrial.png', facultad: 'Ciencias y Tecnología' },
+            'Medicina': { imagen: './imagenes/carreras/medicina.png', facultad: 'Ciencias de la Salud' },
+            'Odontología': { imagen: './imagenes/carreras/odontologia.png', facultad: 'Ciencias de la Salud' },
+            'Sociología': { imagen: './imagenes/carreras/sociologia.png', facultad: 'Ciencias Jurídicas' },
+            'Trabajo Social': { imagen: './imagenes/carreras/trabajo-social.png', facultad: 'Ciencias Jurídicas' },
+            'Turismo Sostenible': { imagen: './imagenes/carreras/turismo.png', facultad: 'Ciencias Económicas' },
+            'Medicina Veterinaria y Zootecnia': { imagen: './imagenes/carreras/veterinaria.png', facultad: 'Ciencias Biológicas' },
+            'Psicología': { imagen: './imagenes/psicologia.png', facultad: 'Ciencias Sociales y Humanísticas' }
+        };
+
+        // 15 PREGUNTAS
+        const preguntas = [
+            {
+                titulo: "En la Feria de Ciencias del colegio, ¿qué preferirías hacer?",
+                opciones: [
+                    { texto: "Construir la maqueta física, armar los circuitos eléctricos o ensamblar el prototipo con tus manos.", valor: "r" },
+                    { texto: "Analizar los datos del experimento en el laboratorio y buscar respuestas científicas.", valor: "i" },
+                    { texto: "Diseñar los afiches, los logotipos y toda la parte visual del stand.", valor: "a" },
+                    { texto: "Explicarle el tema con paciencia a los visitantes y responder sus dudas.", valor: "s" },
+                    { texto: "Convencer a los jueces de que nuestro proyecto es el mejor y buscar patrocinadores.", valor: "e" },
+                    { texto: "Organizar los horarios de las exposiciones y registrar la asistencia en una planilla.", valor: "c" }
+                ]
+            },
+            {
+                titulo: "Si el colegio organiza un evento para recaudar fondos, ¿en qué ayudarías?",
+                opciones: [
+                    { texto: "Encargarte del montaje del escenario, conectar el sonido o reparar lo que se dañe en el momento.", valor: "r" },
+                    { texto: "Investigar qué productos son los más vendidos en internet y analizar las estadísticas de éxito.", valor: "i" },
+                    { texto: "Escribir el guion de un video creativo o actuar para promocionar el evento.", valor: "a" },
+                    { texto: "Coordinar el equipo que recibirá y atenderá cómodamente a las personas.", valor: "s" },
+                    { texto: "Liderar el proyecto, negociar con los proveedores y encargarte de las ventas.", valor: "e" },
+                    { texto: "Llevar la contabilidad exacta de los ingresos, dar los vueltos y archivar los recibos.", valor: "c" }
+                ]
+            },
+            {
+                titulo: "Imagina que tu grupo de amigos quiere abrir un canal de YouTube o TikTok, ¿cuál sería tu rol?",
+                opciones: [
+                    { texto: "Manejar los equipos físicos: cámaras, micrófonos, luces y asegurarte de que todo funcione bien.", valor: "r" },
+                    { texto: "Investigar a fondo sobre temas complejos y escribir guiones con datos científicos verificados.", valor: "i" },
+                    { texto: "Encargarte de la edición de video, la animación, los efectos especiales y el diseño.", valor: "a" },
+                    { texto: "Responder los comentarios de los seguidores, darles consejos y crear una comunidad unida.", valor: "s" },
+                    { texto: "Buscar marcas que quieran pagarnos por publicidad y dirigir las metas del canal.", valor: "e" },
+                    { texto: "Programar los días exactos de publicación, ordenar los archivos en carpetas y revisar las normas.", valor: "c" }
+                ]
+            },
+            {
+                titulo: "Si un compañero de curso tiene problemas con una materia difícil, ¿cómo lo ayudarías?",
+                opciones: [
+                    { texto: "Construyendo un objeto real o usando herramientas físicas para mostrarle cómo funciona.", valor: "r" },
+                    { texto: "Buscando libros avanzados o artículos científicos para entender la raíz del problema.", valor: "i" },
+                    { texto: "Dibujándole un mapa mental lleno de colores y dibujos creativos para comprenda de forma visual.", valor: "a" },
+                    { texto: "Sentándote con él las horas que sea necesario para explicarle con calma y apoyarlo emocionalmente.", valor: "s" },
+                    { texto: "Motivándolo con un discurso enérgico para que no se rinda y organizando un grupo de estudio.", valor: "e" },
+                    { texto: "Prestándole tus apuntes que están perfectamente ordenados, limpios y clasificados por fechas.", valor: "c" }
+                ]
+            },
+            {
+                titulo: "En tu tiempo libre, ¿qué actividad te llama más la atención?",
+                opciones: [
+                    { texto: "Reparar aparatos, armar Legos complejos, hacer carpintería, jardinería o trabajar con animales.", valor: "r" },
+                    { texto: "Resolver acertijos, juegos de lógica, leer sobre tecnología o ver documentales.", valor: "i" },
+                    { texto: "Dibujar, pintar, escribir historias, tocar un instrumento o tomar fotografías.", valor: "a" },
+                    { texto: "Hacer voluntariados, ayudar en tu comunidad, escuchar y aconsejar a tus amigos.", valor: "s" },
+                    { texto: "Pensar en ideas de negocios, vender cosas por internet o planificar proyectos ambiciosos.", valor: "e" },
+                    { texto: "Organizar tu habitación, coleccionar objetos en un orden específico o planificar tu agenda.", valor: "c" }
+                ]
+            },
+            {
+                titulo: "Si tuvieras que hacer un trabajo de investigación histórica sobre tu ciudad, ¿qué te gustaría hacer?",
+                opciones: [
+                    { texto: "Salir a tomar medidas, recolectar muestras físicas de monumentos o restaurar un mapa antiguo.", valor: "r" },
+                    { texto: "Pasar horas en la biblioteca cruzando datos antiguos para descubrir un misterio sin resolver.", valor: "i" },
+                    { texto: "Diseñar una revista digital con un estilo visual de época muy artístico e impactante.", valor: "a" },
+                    { texto: "Entrevistar a las personas más ancianas del barrio para rescatar sus historias humanas.", valor: "s" },
+                    { texto: "Organizar la logística del equipo y presentar los resultados con una exposición muy persuasiva.", valor: "e" },
+                    { texto: "Clasificar cronológicamente todos los documentos hallados y armar un índice perfecto.", valor: "c" }
+                ]
+            },
+            {
+                titulo: "Si tu curso fuera a decorar el aula para una festividad, ¿dónde aportarías más?",
+                opciones: [
+                    { texto: "Subiéndote a las escaleras para colgar las estructuras pesadas, usar herramientas y asegurar todo.", valor: "r" },
+                    { texto: "Investigar el origen cultural de la festividad para que los adornos tengan un sentido exacto.", valor: "i" },
+                    { texto: "Combinar los colores, hacer dibujos originales a mano y proponer una temática estética única.", valor: "a" },
+                    { texto: "Asegurarte de que todos se sientan incluidos en el grupo y llevar comida para compartir.", valor: "s" },
+                    { texto: "Conseguir los materiales al precio más barato negociando con las tiendas cercanas.", valor: "e" },
+                    { texto: "Hacer una lista de tareas pendientes, asignar responsables y controlar el presupuesto.", valor: "c" }
+                ]
+            },
+            {
+                titulo: "Si tuvieras la oportunidad de hacer un curso extracurricular en el colegio, ¿cuál elegirías?",
+                opciones: [
+                    { texto: "Robótica básica, electricidad práctica, cocina o mecánica.", valor: "r" },
+                    { texto: "Programación avanzada, astronomía, ajedrez o debates científicos.", valor: "i" },
+                    { texto: "Fotografía digital, teatro, diseño gráfico o escritura creativa.", valor: "a" },
+                    { texto: "Primeros auxilios, psicología juvenil, liderazgo comunitario o mediación escolar.", valor: "s" },
+                    { texto: "Oratoria, educación financiera, cómo crear tu propia empresa o marketing digital.", valor: "e" },
+                    { texto: "Excel avanzado, mecanografía, gestión de archivos o contabilidad para jóvenes.", valor: "c" }
+                ]
+            },
+            {
+                titulo: "Cuando juegas un juego de mesa o un videojuego con amigos, ¿qué es lo que más disfrutas?",
+                opciones: [
+                    { texto: "Los juegos donde hay que construir imperios, fabricar objetos o usar la destreza motriz.", valor: "r" },
+                    { texto: "Los videojuegos de estrategia pura o acertijos donde debes descifrar un patrón complejo.", valor: "i" },
+                    { texto: "Los juegos que te permiten personalizar al máximo la estética, los trajes o crear mundos libres.", valor: "a" },
+                    { texto: "Los juegos cooperativos donde el éxito depende de ayudar y salvar constantemente a tu equipo.", valor: "s" },
+                    { texto: "Los juegos de negociación, monopolio o donde debes competir y liderar para ganar.", valor: "e" },
+                    { texto: "Los juegos con reglas muy estrictas y claras donde la victoria se logra siguiendo un orden lógico.", valor: "c" }
+                ]
+            },
+            {
+                titulo: "Si el colegio creara un club ecológico, ¿qué rol preferirías asumir?",
+                opciones: [
+                    { texto: "Plantar los árboles, preparar la tierra del huerto escolar y mantener las herramientas limpias.", valor: "r" },
+                    { texto: "Analizar la calidad del suelo mediante pruebas caseras de química y documentar el impacto ambiental.", valor: "i" },
+                    { texto: "Pintar murales coloridos en el colegio que transmitan un mensaje de conciencia ambiental.", valor: "a" },
+                    { texto: "Dar charlas interactivas a los niños de los cursos más bajos para enseñarles a reciclar.", valor: "s" },
+                    { texto: "Diseñar una campaña para vender botellas ecológicas y recaudar dinero para el club.", valor: "e" },
+                    { texto: "Llevar el registro exacto de cuántos kilos de papel y plástico se reciclan cada semana.", valor: "c" }
+                ]
+            },
+            // {
+            //     titulo: "En un trabajo escolar en grupo, ¿qué es lo primero que haces de forma natural?",
+            //     opciones: [
+            //         { texto: "Ofrecerte a hacer la parte manual: cortar, pegar, cablear o ensamblar el soporte físico.", valor: "r" },
+            //         { texto: "Ofrecerte a buscar la información más difícil en internet y verificar si las fuentes son reales.", valor: "i" },
+            //         { texto: "Proponer ideas locas y diferentes para que la presentación no sea aburrida ni igual al resto.", valor: "a" },
+            //         { texto: "Preguntar cómo están todos, resolver tensiones y asegurarte de que el ambiente sea amigable.", valor: "s" },
+            //         { texto: "Tomar la iniciativa, repartir los temas, motivar al grupo y fijar la meta de sacar la nota más alta.", valor: "e" },
+            //         { texto: "Hacer el formato del documento, revisar la ortografía, los márgenes y estructurar el índice.", valor: "c" }
+            //     ]
+            // },
+            // {
+            //     titulo: "Si ganaras un premio y pudieras elegir un regalo tecnológico, ¿cuál preferirías?",
+            //     opciones: [
+            //         { texto: "Una herramienta especializada, una impresora 3D o un kit para armar un dron.", valor: "r" },
+            //         { texto: "Un telescopio potente, un microscopio digital o un software de análisis de datos.", valor: "i" },
+            //         { texto: "Una tableta gráfica para dibujar, una cámara fotográfica profesional o un programa de edición musical.", valor: "a" },
+            //         { texto: "Un kit de micrófonos profesionales para hacer entrevistas o podcasts de ayuda social.", valor: "s" },
+            //         { texto: "Un smartphone de última generación para gestionar redes sociales, ventas y contactos de proyectos.", valor: "e" },
+            //         { texto: "Una computadora portátil con un procesador rápido optimizado para bases de datos y organización.", valor: "c" }
+            //     ]
+            // },
+            // {
+            //     titulo: "Cuando entras a una tienda o un espacio nuevo, ¿en qué se fija tu mente de inmediato?",
+            //     opciones: [
+            //         { texto: "En la estructura del techo, cómo están instaladas las luces o el funcionamiento de las puertas automáticas.", valor: "r" },
+            //         { texto: "En tratar de descifrar cómo funciona el sistema de seguridad o la lógica detrás de la distribución del lugar.", valor: "i" },
+            //         { texto: "En la decoración, la combinación de colores, la música de fondo y el diseño del logotipo.", valor: "a" },
+            //         { texto: "En la amabilidad del personal, el trato hacia los clientes y si las personas se ven cómodas.", valor: "s" },
+            //         { texto: "En los precios de los productos, las ofertas llamativas y cuánta gente está comprando realmente.", valor: "e" },
+            //         { texto: "En el orden de los estantes, la limpieza, los carteles de señalización y las etiquetas de inventario.", valor: "c" }
+            //     ]
+            // },
+            // {
+            //     titulo: "Si tuvieras que describir tu mayor habilidad actual a un profesor, ¿qué le dirías?",
+            //     opciones: [
+            //         { texto: "\"Soy muy bueno usando mis manos, reparando cosas y entendiendo cómo funcionan los objetos\".", valor: "r" },
+            //         { texto: "\"Soy muy bueno analizando problemas, concentrándome en los detalles y buscando el porqué de las cosas\".", valor: "i" },
+            //         { texto: "\"Soy muy bueno imaginando ideas nuevas, diseñando de forma creativa y expresando mi originalidad\".", valor: "a" },
+            //         { texto: "\"Soy muy bueno escuchando a las personas, enseñando con paciencia y trabajando en equipo\".", valor: "s" },
+            //         { texto: "\"Soy muy bueno liderando, convenciendo a la gente y logrando que los proyectos se hagan realidad\".", valor: "e" },
+            //         { texto: "\"Soy muy bueno siendo organizado, siguiendo instrucciones precisas y manteniendo todo bajo control\".", valor: "c" }
+            //     ]
+            // }
+        ];
+
+        // PERFILES RIASEC CON 3 CARRERAS PRINCIPALES CADA UNO
+        const perfiles = {
+            r: {
+                nombre: '🔧 REALISTA (Hacedor)',
+                descripcion: 'Te encanta trabajar con tus manos y ver resultados tangibles. Eres práctico, mecánicamente hábil y prefieres las actividades concretas.',
+                carreras: [
+                    'Arquitectura',
+                    'Ingeniería Civil',
+                    'Ingeniería Agroforestal'
+                ]
+            },
+            i: {
+                nombre: '🧪 INVESTIGATIVO (Pensador)',
+                descripcion: 'Eres analítico, curioso y te encanta resolver problemas complejos. Prefieres trabajar con ideas, datos y conceptos.',
+                carreras: [
+                    'Ingeniería de Sistemas',
+                    'Ingeniería Industrial',
+                    'Biología'
+                ]
+            },
+            a: {
+                nombre: '🎨 ARTÍSTICO (Creador)',
+                descripcion: 'Eres creativo, expresivo y original. Te encanta trabajar sin límites y expresar tus ideas de formas únicas.',
+                carreras: [
+                    'Comunicación Social',
+                    'Ingeniería Ambiental',
+                    'Turismo Sostenible'
+                ]
+            },
+            s: {
+                nombre: '❤️ SOCIAL (Ayudante)',
+                descripcion: 'Eres empático, solidario y te encanta ayudar a otros. Prefieres trabajar en equipo y buscas hacer una diferencia en la vida de las personas.',
+                carreras: [
+                    'Medicina',
+                    'Psicología',
+                    'Trabajo Social'
+                ]
+            },
+            e: {
+                nombre: '💼 EMPRENDEDOR (Persuasor)',
+                descripcion: 'Eres líder, ambicioso y tienes visión de negocios. Te encanta persuadir, influir en otros y dirigir proyectos.',
+                carreras: [
+                    'Administración de Empresas',
+                    'Comercio Internacional y Aduanas',
+                    'Ingeniería Comercial'
+                ]
+            },
+            c: {
+                nombre: '📊 CONVENCIONAL (Organizador)',
+                descripcion: 'Eres ordenado, meticuloso y te encanta trabajar con sistemas y datos. Prefieres procesos claros y establecidos.',
+                carreras: [
+                    'Contaduría Pública',
+                    'Ingeniería Financiera',
+                    'Odontología'
+                ]
+            }
+        };
+
+        function enviarDatosAGoogleSheets(resultado, edad, genero, colegio) {
+         const perfil = perfiles[resultado];
+        const datos = {
+        fechaNacimiento: localStorage.getItem('fecha'),
+        edad: edad,
+        genero: genero === 'mujer' ? 'Mujer' : 'Varón',
+        colegio: colegio,
+        perfilCodigo: resultado,
+        perfilNombre: perfil.nombre,
+        carreras: perfil.carreras,
+        respuestas: respuestas
+    };
+
+    fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(datos)
+    }).catch(err => console.error('Error al guardar en Sheets:', err));
+}
+        // VARIABLES GLOBALES
+        let preguntaActual = 0;
+        let respuestas = {};
+        let generoSeleccionado = null;
+
+        // FUNCIONES PRINCIPALES
+        function validarEdad() {
+            const fecha = document.getElementById('fechaNacimiento').value;
+            if (!fecha) return false;
+
+            const hoy = new Date();
+            const fechaNac = new Date(fecha);
+            let edad = hoy.getFullYear() - fechaNac.getFullYear();
+            const mes = hoy.getMonth() - fechaNac.getMonth();
+            if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNac.getDate())) {
+                edad--;
+            }
+
+            const mensajeEdad = document.getElementById('mensajeEdad');
+            if (edad < 15) {
+                mensajeEdad.style.display = 'block';
+                return false;
+            } else {
+                mensajeEdad.style.display = 'none';
+                return true;
+            }
+        }
+
+        document.getElementById('fechaNacimiento').addEventListener('change', validarEdad);
+
+        document.querySelectorAll('input[name="genero"]').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                generoSeleccionado = e.target.value;
+                if (generoSeleccionado === 'mujer') {
+                    document.body.classList.remove('genero-varon');
+                    document.body.classList.add('genero-mujer');
+                } else if (generoSeleccionado === 'varon') {
+                    document.body.classList.remove('genero-mujer');
+                    document.body.classList.add('genero-varon');
+                }
+            });
+        });
+
+        function iniciarTest() {
+            const fecha = document.getElementById('fechaNacimiento').value;
+            const genero = document.querySelector('input[name="genero"]:checked');
+            const colegio = document.getElementById('colegio').value;
+            const errorDiv = document.getElementById('errorForm');
+
+            errorDiv.style.display = 'none';
+
+            if (!fecha || !genero || !colegio) {
+                errorDiv.textContent = '⚠️ Por favor completa todos los campos marcados con *';
+                errorDiv.style.display = 'block';
+                return;
+            }
+
+            if (!validarEdad()) {
+                errorDiv.textContent = '⚠️ Debes tener al menos 15 años para responder este cuestionario';
+                errorDiv.style.display = 'block';
+                return;
+            }
+
+            generoSeleccionado = genero.value;
+            localStorage.setItem('fecha', fecha);
+            localStorage.setItem('genero', genero.value);
+            localStorage.setItem('colegio', colegio);
+
+            document.getElementById('seccionDatos').style.display = 'none';
+            document.getElementById('seccionPreguntas').style.display = 'block';
+            document.querySelector('.progress-container').style.display = 'block';
+
+            mostrarPregunta(0);
+        }
+
+        function mostrarPregunta(index) {
+            preguntaActual = index;
+            const pregunta = preguntas[index];
+            
+            document.getElementById('numeroPregunta').textContent = index + 1;
+            document.getElementById('tituloPregunta').textContent = pregunta.titulo;
+            document.getElementById('preguntaActual').textContent = index + 1;
+
+            const opcionesDiv = document.getElementById('opcionesPregunta');
+            opcionesDiv.innerHTML = '';
+
+            pregunta.opciones.forEach(opcion => {
+                const div = document.createElement('div');
+                div.className = 'opcion';
+                div.innerHTML = `
+                    <input type="radio" name="respuesta" value="${opcion.valor}">
+                    <label>${opcion.texto}</label>
+                `;
+
+                div.addEventListener('click', () => {
+                    document.querySelectorAll('.opcion').forEach(opt => opt.classList.remove('selected'));
+                    div.classList.add('selected');
+                    div.querySelector('input').checked = true;
+                    respuestas[index] = opcion.valor;
+                    document.getElementById('btnSiguiente').disabled = false;
+                    actualizarProgress();
+                });
+
+                opcionesDiv.appendChild(div);
+            });
+
+            document.getElementById('btnSiguiente').disabled = true;
+            actualizarProgress();
+        }
+
+        function siguientePregunta() {
+            if (preguntaActual < preguntas.length - 1) {
+                mostrarPregunta(preguntaActual + 1);
+                window.scrollTo(0, 0);
+            } else {
+                finalizarTest();
+            }
+        }
+
+        function actualizarProgress() {
+            const respondidas = Object.keys(respuestas).length;
+            const progress = (respondidas / 10) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function finalizarTest() {
+            const conteo = { r: 0, i: 0, a: 0, s: 0, e: 0, c: 0 };
+            
+            Object.values(respuestas).forEach(valor => {
+                conteo[valor]++;
+            });
+
+            let maximo = Math.max(...Object.values(conteo));
+            const resultado = Object.keys(conteo).find(key => conteo[key] === maximo);
+
+            localStorage.setItem('resultado', resultado);
+            mostrarResultado(resultado);
+        }
+
+        function mostrarResultado(resultado) {
+            const perfil = perfiles[resultado];
+            const fecha = localStorage.getItem('fecha');
+            const genero = localStorage.getItem('genero');
+            const colegio = localStorage.getItem('colegio');
+
+            const hoy = new Date();
+            const fechaNac = new Date(fecha);
+            let edad = hoy.getFullYear() - fechaNac.getFullYear();
+            const mes = hoy.getMonth() - fechaNac.getMonth();
+            if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNac.getDate())) {
+                edad--;
+            }
+
+            document.getElementById('edadResultado').textContent = edad;
+            document.getElementById('generoResultado').textContent = genero === 'mujer' ? 'Mujer' : 'Varón';
+            document.getElementById('colegioResultado').textContent = colegio;
+            enviarDatosAGoogleSheets(resultado, edad, genero, colegio);
+
+            document.getElementById('perfilTitulo').textContent = perfil.nombre;
+            document.getElementById('perfilDescripcion').textContent = perfil.descripcion;
+
+            const carrerasHTML = perfil.carreras
+                .map(carrera => {
+                    const info = carrerasInfo[carrera] || { imagen: '', facultad: 'UAP' };
+                    return `
+                        <div class="carrera-item">
+                            <div class="carrera-logo">
+                                <img src="${info.imagen}" alt="${carrera}" onerror="this.style.display='none'">
+                            </div>
+                            <div>
+                                <div class="carrera-nombre">${carrera}</div>
+                                <small style="color: #999; font-size: 0.85em;">${info.facultad}</small>
+                            </div>
+                        </div>
+                    `;
+                })
+                .join('');
+            document.getElementById('carrerasLista').innerHTML = carrerasHTML;
+
+            document.getElementById('seccionPreguntas').style.display = 'none';
+            document.getElementById('seccionResultado').style.display = 'block';
+            window.scrollTo(0, 0);
+        }
+
+        function reiniciarTest() {
+            localStorage.clear();
+            preguntaActual = 0;
+            respuestas = {};
+            generoSeleccionado = null;
+            
+            document.body.classList.remove('genero-mujer', 'genero-varon');
+            document.getElementById('seccionResultado').style.display = 'none';
+            document.getElementById('seccionDatos').style.display = 'block';
+            document.getElementById('fechaNacimiento').value = '';
+            document.getElementById('colegio').value = '';
+            document.querySelectorAll('input[name="genero"]').forEach(radio => radio.checked = false);
+            document.getElementById('progressFill').style.width = '0%';
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
