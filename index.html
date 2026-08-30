@@ -56,15 +56,17 @@
 
         .header-logo {
             display: flex;
-            justify-content: center;
-            gap: 20px;
+            justify-content: space-between;
+            align-items: center;
+            gap: 80px;
             margin-bottom: 15px;
-            flex-wrap: wrap;
+            padding: 0 18px;
+            flex-wrap: nowrap;
         }
 
         .logo-facultad {
-            width: 220px;
-            height: 220px;
+            width: 200px;
+            height: 200px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -73,11 +75,12 @@
             border-radius: 0;
             box-shadow: none;
             padding: 0;
+            flex-shrink: 0;
         }
 
         .logo-facultad img {
-            max-width: 150%;
-            max-height: 150%;
+            width: 190%;
+            height: 190%;
             object-fit: contain;
             filter: none;
         }
@@ -94,7 +97,8 @@
         }
 
         .content {
-            padding: clamp(15px, 5vw, 40px);
+            padding: clamp(25px, 5vw, 45px);
+            margin-top: 16px;
         }
 
         .form-group {
