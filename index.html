@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -586,7 +585,6 @@
             .logo-facultad {
                 width: 75px;
                 height: 75px;
-                border: 2px solid rgba(255, 255, 255, 0.9);
             }
         }
     </style>
@@ -726,7 +724,6 @@
 
     <script>
         const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz0UYoFIDLnffkNs_64JBZz4Ug2qxT-W-RD1wdlt6xeeVCferZbWlSCMUtqg4nQE0DQbg/exec';
-        // CARRERAS LIMITADAS A LAS DE LA IMAGEN
         const carrerasInfo = {
             'Administración de Empresas': { imagen: './imagenes/carreras/administracion.png', facultad: 'Ciencias Económicas' },
             'Ingeniería Ambiental': { imagen: './imagenes/carreras/ambiental.png', facultad: 'Ciencias Biológicas' },
@@ -755,7 +752,6 @@
             'Psicología': { imagen: './imagenes/logo-psicologia.png', facultad: 'Ciencias Sociales y Humanísticas' }
         };
 
-        // 15 PREGUNTAS
         const preguntas = [
             {
                 titulo: "En la Feria de Ciencias del colegio, ¿qué preferirías hacer?",
@@ -866,137 +862,67 @@
                     { texto: "Diseñar una campaña para vender botellas ecológicas y recaudar dinero para el club.", valor: "e" },
                     { texto: "Llevar el registro exacto de cuántos kilos de papel y plástico se reciclan cada semana.", valor: "c" }
                 ]
-            },
-            // {
-            //     titulo: "En un trabajo escolar en grupo, ¿qué es lo primero que haces de forma natural?",
-            //     opciones: [
-            //         { texto: "Ofrecerte a hacer la parte manual: cortar, pegar, cablear o ensamblar el soporte físico.", valor: "r" },
-            //         { texto: "Ofrecerte a buscar la información más difícil en internet y verificar si las fuentes son reales.", valor: "i" },
-            //         { texto: "Proponer ideas locas y diferentes para que la presentación no sea aburrida ni igual al resto.", valor: "a" },
-            //         { texto: "Preguntar cómo están todos, resolver tensiones y asegurarte de que el ambiente sea amigable.", valor: "s" },
-            //         { texto: "Tomar la iniciativa, repartir los temas, motivar al grupo y fijar la meta de sacar la nota más alta.", valor: "e" },
-            //         { texto: "Hacer el formato del documento, revisar la ortografía, los márgenes y estructurar el índice.", valor: "c" }
-            //     ]
-            // },
-            // {
-            //     titulo: "Si ganaras un premio y pudieras elegir un regalo tecnológico, ¿cuál preferirías?",
-            //     opciones: [
-            //         { texto: "Una herramienta especializada, una impresora 3D o un kit para armar un dron.", valor: "r" },
-            //         { texto: "Un telescopio potente, un microscopio digital o un software de análisis de datos.", valor: "i" },
-            //         { texto: "Una tableta gráfica para dibujar, una cámara fotográfica profesional o un programa de edición musical.", valor: "a" },
-            //         { texto: "Un kit de micrófonos profesionales para hacer entrevistas o podcasts de ayuda social.", valor: "s" },
-            //         { texto: "Un smartphone de última generación para gestionar redes sociales, ventas y contactos de proyectos.", valor: "e" },
-            //         { texto: "Una computadora portátil con un procesador rápido optimizado para bases de datos y organización.", valor: "c" }
-            //     ]
-            // },
-            // {
-            //     titulo: "Cuando entras a una tienda o un espacio nuevo, ¿en qué se fija tu mente de inmediato?",
-            //     opciones: [
-            //         { texto: "En la estructura del techo, cómo están instaladas las luces o el funcionamiento de las puertas automáticas.", valor: "r" },
-            //         { texto: "En tratar de descifrar cómo funciona el sistema de seguridad o la lógica detrás de la distribución del lugar.", valor: "i" },
-            //         { texto: "En la decoración, la combinación de colores, la música de fondo y el diseño del logotipo.", valor: "a" },
-            //         { texto: "En la amabilidad del personal, el trato hacia los clientes y si las personas se ven cómodas.", valor: "s" },
-            //         { texto: "En los precios de los productos, las ofertas llamativas y cuánta gente está comprando realmente.", valor: "e" },
-            //         { texto: "En el orden de los estantes, la limpieza, los carteles de señalización y las etiquetas de inventario.", valor: "c" }
-            //     ]
-            // },
-            // {
-            //     titulo: "Si tuvieras que describir tu mayor habilidad actual a un profesor, ¿qué le dirías?",
-            //     opciones: [
-            //         { texto: "\"Soy muy bueno usando mis manos, reparando cosas y entendiendo cómo funcionan los objetos\".", valor: "r" },
-            //         { texto: "\"Soy muy bueno analizando problemas, concentrándome en los detalles y buscando el porqué de las cosas\".", valor: "i" },
-            //         { texto: "\"Soy muy bueno imaginando ideas nuevas, diseñando de forma creativa y expresando mi originalidad\".", valor: "a" },
-            //         { texto: "\"Soy muy bueno escuchando a las personas, enseñando con paciencia y trabajando en equipo\".", valor: "s" },
-            //         { texto: "\"Soy muy bueno liderando, convenciendo a la gente y logrando que los proyectos se hagan realidad\".", valor: "e" },
-            //         { texto: "\"Soy muy bueno siendo organizado, siguiendo instrucciones precisas y manteniendo todo bajo control\".", valor: "c" }
-            //     ]
-            // }
+            }
         ];
 
-        // PERFILES RIASEC CON 3 CARRERAS PRINCIPALES CADA UNO
         const perfiles = {
             r: {
                 nombre: '🔧 REALISTA (Hacedor)',
                 descripcion: 'Te encanta trabajar con tus manos y ver resultados tangibles. Eres práctico, mecánicamente hábil y prefieres las actividades concretas.',
-                carreras: [
-                    'Arquitectura',
-                    'Ingeniería Civil',
-                    'Ingeniería Agroforestal'
-                ]
+                carreras: ['Arquitectura', 'Ingeniería Civil', 'Ingeniería Agroforestal']
             },
             i: {
                 nombre: '🧪 INVESTIGATIVO (Pensador)',
                 descripcion: 'Eres analítico, curioso y te encanta resolver problemas complejos. Prefieres trabajar con ideas, datos y conceptos.',
-                carreras: [
-                    'Ingeniería de Sistemas',
-                    'Ingeniería Industrial',
-                    'Biología'
-                ]
+                carreras: ['Ingeniería de Sistemas', 'Ingeniería Industrial', 'Biología']
             },
             a: {
                 nombre: '🎨 ARTÍSTICO (Creador)',
                 descripcion: 'Eres creativo, expresivo y original. Te encanta trabajar sin límites y expresar tus ideas de formas únicas.',
-                carreras: [
-                    'Comunicación Social',
-                    'Ingeniería Ambiental',
-                    'Turismo Sostenible'
-                ]
+                carreras: ['Comunicación Social', 'Ingeniería Ambiental', 'Turismo Sostenible']
             },
             s: {
                 nombre: '❤️ SOCIAL (Ayudante)',
                 descripcion: 'Eres empático, solidario y te encanta ayudar a otros. Prefieres trabajar en equipo y buscas hacer una diferencia en la vida de las personas.',
-                carreras: [
-                    'Medicina',
-                    'Psicología',
-                    'Trabajo Social'
-                ]
+                carreras: ['Medicina', 'Psicología', 'Trabajo Social']
             },
             e: {
                 nombre: '💼 EMPRENDEDOR (Persuasor)',
                 descripcion: 'Eres líder, ambicioso y tienes visión de negocios. Te encanta persuadir, influir en otros y dirigir proyectos.',
-                carreras: [
-                    'Administración de Empresas',
-                    'Comercio Internacional y Aduanas',
-                    'Ingeniería Comercial'
-                ]
+                carreras: ['Administración de Empresas', 'Comercio Internacional y Aduanas', 'Ingeniería Comercial']
             },
             c: {
                 nombre: '📊 CONVENCIONAL (Organizador)',
                 descripcion: 'Eres ordenado, meticuloso y te encanta trabajar con sistemas y datos. Prefieres procesos claros y establecidos.',
-                carreras: [
-                    'Contaduría Pública',
-                    'Ingeniería Financiera',
-                    'Odontología'
-                ]
+                carreras: ['Contaduría Pública', 'Ingeniería Financiera', 'Odontología']
             }
         };
 
         function enviarDatosAGoogleSheets(resultado, edad, genero, colegio) {
-         const perfil = perfiles[resultado];
-        const datos = {
-        fechaNacimiento: localStorage.getItem('fecha'),
-        edad: edad,
-        genero: genero === 'mujer' ? 'Mujer' : 'Varón',
-        colegio: colegio,
-        perfilCodigo: resultado,
-        perfilNombre: perfil.nombre,
-        carreras: perfil.carreras,
-        respuestas: respuestas
-    };
+            const perfil = perfiles[resultado];
+            const datos = {
+                fechaNacimiento: localStorage.getItem('fecha'),
+                edad: edad,
+                genero: genero === 'mujer' ? 'Mujer' : 'Varón',
+                colegio: colegio,
+                perfilCodigo: resultado,
+                perfilNombre: perfil.nombre,
+                carreras: perfil.carreras,
+                respuestas: respuestas
+            };
 
-    fetch(GOOGLE_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain' },
-        body: JSON.stringify(datos)
-    }).catch(err => console.error('Error al guardar en Sheets:', err));
-}
-        // VARIABLES GLOBALES
+            fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'text/plain' },
+                body: JSON.stringify(datos)
+            }).catch(err => console.error('Error al guardar en Sheets:', err));
+        }
+
         let preguntaActual = 0;
         let respuestas = {};
         let generoSeleccionado = null;
 
-        // FUNCIONES PRINCIPALES
         function validarEdad() {
             const fecha = document.getElementById('fechaNacimiento').value;
             if (!fecha) return false;
@@ -1193,4 +1119,3 @@
     </script>
 </body>
 </html>
- 
