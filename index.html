@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test Vocacional UAP - Descubre Tu Futuro 🚀</title>
+    <!-- Librería para convertir HTML a PNG -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -318,6 +320,14 @@
             color: #FF6B35;
         }
 
+        /* ELEMENTO A CAPTURAR EN PNG */
+        #contenidoCaptura {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
         .resultado-perfil {
             background: linear-gradient(135deg, #E61E78 0%, #D81B60 50%, #00897B 100%);
             color: white;
@@ -486,9 +496,10 @@
         .btn-secondary {
             background: #E61E78;
             color: white;
-            margin-top: 30px;
+            margin-top: 20px;
             font-size: clamp(0.9em, 2vw, 1em);
             padding: 12px 20px;
+            width: 100%;
         }
 
         body.genero-varon .btn-secondary {
@@ -502,6 +513,31 @@
 
         body.genero-varon .btn-secondary:hover {
             background: #E64A19;
+        }
+
+        .btn-download {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            color: white;
+            margin-top: 20px;
+            font-size: clamp(0.9em, 2vw, 1em);
+            padding: 12px 20px;
+            width: 100%;
+        }
+
+        .btn-download:hover {
+            background: linear-gradient(135deg, #45a049 0%, #3d8b40 100%);
+            transform: translateY(-2px);
+        }
+
+        .btn-download:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .botones-resultado {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
         .error-message {
@@ -642,7 +678,7 @@
                             <option value="Antonio Vaca Díez">Antonio Vaca Díez (primario y secundario)</option>
                             <option value="Manuela Rojas">Manuela Rojas de Domínguez</option>
                             <option value="Rogelia Menacho">Rogelia Menacho de Balcázar</option>
-                            <option value="Defensores de Lacre">Defensores del Acre</option>
+                            <option value="Defensores de Lacre">Defensores de Lacre</option>
                             <option value="Bella Vista">Bella Vista</option>
                             <option value="Héroes de la Distancia">Héroes de la Distancia</option>
                             <option value="Juana Azurduy">Juana Azurduy de Padilla</option>
@@ -657,10 +693,10 @@
                             <option value="San Francisco de Asís">San Francisco de Asís</option>
                         </optgroup>
                         <optgroup label="Privados">
-                            <option value="Instituto Americano">Colegio Evangélico Metodista Instituto Americano Cobija</option>
-                            <option value="Adventista">Adventista Baker</option>
-                            <option value="Ebenezer">Ebenezer</option>
-                             <option value="Ebenezer">America</option>
+                            <option value="Instituto Americano">Instituto Americano Cobija</option>
+                            <option value="Adventista"> Adventista  Baker</option>
+                            <option value="Ebenezer"> Ebenezer</option>
+                             <option value="America">America</option>
                         </optgroup>
                     </select>
                 </div>
@@ -697,28 +733,36 @@
             <!-- SECCIÓN 3: RESULTADOS -->
             <div id="seccionResultado">
                 <div class="resultado-header">
-                    <h2> Tu Perfil Vocacional</h2>
+                    <h2>Tu Perfil Vocacional</h2>
                 </div>
 
-                <div class="datos-resultado">
-                    <p>Edad: <strong id="edadResultado"></strong> años</p>
-                    <p>Género: <strong id="generoResultado"></strong></p>
-                    <p>Institución: <strong id="colegioResultado"></strong></p>
+                <!-- ESTE ES EL ELEMENTO QUE SE CAPTURARÁ EN PNG -->
+                <div id="contenidoCaptura">
+                    <div class="datos-resultado">
+                        <p>Edad: <strong id="edadResultado"></strong> años</p>
+                        <p>Género: <strong id="generoResultado"></strong></p>
+                        <p>Institución: <strong id="colegioResultado"></strong></p>
+                    </div>
+
+                    <div class="resultado-perfil">
+                        <div class="perfil-titulo" id="perfilTitulo"></div>
+                        <div class="perfil-descripcion" id="perfilDescripcion"></div>
+                    </div>
+
+                    <div class="carreras-section">
+                        <h3>🎓 Top 3 Carreras Recomendadas en UAP:</h3>
+                        <div class="carreras-list" id="carrerasLista"></div>
+                    </div>
                 </div>
 
-                <div class="resultado-perfil">
-                    <div class="perfil-titulo" id="perfilTitulo"></div>
-                    <div class="perfil-descripcion" id="perfilDescripcion"></div>
+                <div class="botones-resultado">
+                    <button class="btn btn-download" onclick="descargarResultadosPNG()">
+                        📥 Descargar Resultados (PNG)
+                    </button>
+                    <button class="btn btn-secondary" onclick="reiniciarTest()">
+                        🔄 Realizar test nuevamente
+                    </button>
                 </div>
-
-                <div class="carreras-section">
-                    <h3>🎓 Top 3 Carreras Recomendadas en UAP:</h3>
-                    <div class="carreras-list" id="carrerasLista"></div>
-                </div>
-
-                <button class="btn btn-secondary" onclick="reiniciarTest()">
-                    🔄 Realizar test nuevamente
-                </button>
             </div>
         </div>
     </div>
@@ -1100,6 +1144,95 @@
             document.getElementById('seccionPreguntas').style.display = 'none';
             document.getElementById('seccionResultado').style.display = 'block';
             window.scrollTo(0, 0);
+        }
+
+        // NUEVA FUNCIÓN PARA DESCARGAR COMO PNG CON HEADER Y FONDO
+        async function descargarResultadosPNG() {
+            const contenido = document.getElementById('contenidoCaptura');
+            const headerOriginal = document.querySelector('.header');
+            const boton = event.target;
+            
+            // Cambiar estado del botón
+            boton.disabled = true;
+            boton.textContent = '⏳ Generando imagen...';
+
+            try {
+                // Crear un contenedor temporal con fondo
+                const contenedorTemporal = document.createElement('div');
+                contenedorTemporal.style.position = 'absolute';
+                contenedorTemporal.style.left = '-9999px';
+                contenedorTemporal.style.width = '900px';
+                contenedorTemporal.style.borderRadius = '20px';
+                contenedorTemporal.style.overflow = 'hidden';
+                contenedorTemporal.style.boxShadow = '0 20px 60px rgba(0, 0, 0, 0.3)';
+                contenedorTemporal.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+                
+                // Obtener el fondo actual del body
+                const genero = localStorage.getItem('genero');
+                let gradiente = 'linear-gradient(135deg, #E61E78 0%, #FF6B35 50%, #00796B 100%)';
+                if (genero === 'mujer') {
+                    gradiente = 'linear-gradient(135deg, #E61E78 0%, #D81B60 50%, #00897B 100%)';
+                } else if (genero === 'varon') {
+                    gradiente = 'linear-gradient(135deg, #FF6B35 0%, #E64A19 50%, #1A237E 100%)';
+                }
+                
+                // Clonar el header
+                const headerClonado = headerOriginal.cloneNode(true);
+                headerClonado.style.background = gradiente;
+                headerClonado.style.margin = '0';
+                headerClonado.style.padding = '30px 20px';
+                contenedorTemporal.appendChild(headerClonado);
+                
+                // Crear contenedor para el contenido
+                const contenedorContenido = document.createElement('div');
+                contenedorContenido.style.padding = '40px';
+                contenedorContenido.style.background = 'white';
+                
+                // Clonar el contenido
+                const contenidoClonado = contenido.cloneNode(true);
+                contenedorContenido.appendChild(contenidoClonado);
+                contenedorTemporal.appendChild(contenedorContenido);
+                
+                // Agregar al body
+                document.body.appendChild(contenedorTemporal);
+
+                // Esperar un poco para que se renderice
+                await new Promise(resolve => setTimeout(resolve, 500));
+
+                const canvas = await html2canvas(contenedorTemporal, {
+                    allowTaint: true,
+                    useCORS: true,
+                    scale: 2,
+                    logging: false,
+                    backgroundColor: 'transparent'
+                });
+
+                // Eliminar el contenedor temporal
+                document.body.removeChild(contenedorTemporal);
+
+                // Crear un link para descargar
+                const link = document.createElement('a');
+                const fecha = new Date();
+                const nombreArchivo = `Resultado_Vocacional_${fecha.getFullYear()}-${String(fecha.getMonth() + 1).padStart(2, '0')}-${String(fecha.getDate()).padStart(2, '0')}.png`;
+                
+                link.href = canvas.toDataURL('image/png');
+                link.download = nombreArchivo;
+                link.click();
+
+                // Restaurar estado del botón
+                boton.textContent = '✅ ¡Descargado!';
+                setTimeout(() => {
+                    boton.textContent = '📥 Descargar Resultados (PNG)';
+                    boton.disabled = false;
+                }, 2000);
+            } catch (error) {
+                console.error('Error al generar PNG:', error);
+                boton.textContent = '❌ Error al descargar';
+                boton.disabled = false;
+                setTimeout(() => {
+                    boton.textContent = '📥 Descargar Resultados (PNG)';
+                }, 2000);
+            }
         }
 
         function reiniciarTest() {
